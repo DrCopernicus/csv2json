@@ -22,7 +22,7 @@ def make_a_list(filename):
             outarea = {}
             for key in molecule:
                 if molecule[key].startswith('$$FILE.'):
-                    add_to_output(outarea, string.split(key,'.'), make_a_list('thecreators'))
+                    add_to_output(outarea, string.split(key,'.'), make_a_list((string.split(molecule[key],'.',maxsplit=1))[1]))
                 else:
                     add_to_output(outarea, string.split(key,'.'), molecule[key])
             output[filename].append(outarea)
