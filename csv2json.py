@@ -32,5 +32,5 @@ superfilename = raw_input('Enter file without ext: ')
 superout = make_a_list(superfilename)
 
 f = open(superfilename+'.json','w')
-f.write(json.dumps(superout[0], sort_keys=True, indent=2))
+f.write(json.dumps(superout, sort_keys=True, indent=2))
 f.close()
