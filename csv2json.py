@@ -15,6 +15,23 @@ def add_to_output(outlist, cat, value):
         tiger = outlist[cat[0]]  # why is this called tiger?
         add_to_output(tiger, cat[1:], value)
 
+def give_number(string):
+    try:
+        return int(string)
+    except ValueError:
+        try:
+            return float(string)
+        except ValueError:
+            return string
+
+def parse_molecule_value(value):
+    if string.lower(value) == 'false':
+        return False
+    elif string.lower(value) == 'true':
+        return True
+    else:
+        return give_number(value)
+
 def make_a_list(filename):
     output = {filename: []}
     with open(filename+'.csv') as csv_file:
@@ -24,7 +41,7 @@ def make_a_list(filename):
                 if molecule[key].startswith('$$FILE.'):
                     add_to_output(outarea, string.split(key,'.'), make_a_list((string.split(molecule[key],'.',maxsplit=1))[1]))
                 else:
-                    add_to_output(outarea, string.split(key,'.'), molecule[key])
+                    add_to_output(outarea, string.split(key,'.'), parse_molecule_value(molecule[key]))
             output[filename].append(outarea)
     return output[filename]
 
