@@ -25,7 +25,9 @@ def give_number(string):
             return string
 
 def parse_molecule_value(value):
-    if string.lower(value) == 'false':
+    if value.startswith('$$LIST'):
+        return string.split(value[7:-2],";")
+    elif string.lower(value) == 'false':
         return False
     elif string.lower(value) == 'true':
         return True
@@ -48,6 +50,9 @@ def make_a_list(filename):
 superfilename = raw_input('Enter file without ext: ')
 superout = make_a_list(superfilename)
 
+definejsontypeanddata = {'Type': superfilename,
+                         'Data': superout}
+
 f = open(superfilename+'.json','w')
-f.write(json.dumps(superout, sort_keys=True, indent=2))
+f.write(json.dumps(definejsontypeanddata, sort_keys=True, indent=2))
 f.close()
